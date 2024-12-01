@@ -1,0 +1,7 @@
+@media screen and (max-width: 600px) {
+    #dosbox {
+      max-width: 100%;
+      max-height: 400px; /* Меньший размер на мобильных устройствах */
+    }
+  }
+  
