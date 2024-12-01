@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinball Space Cadet</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    #dosbox {
+      width: 100%;
+      height: 100%;
+      max-width: 800px;
+      max-height: 600px;
+      border: 2px solid #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="dosbox"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/dosboxjs/dosbox.js@latest/dosbox.js"></script>
+  <script>
+    var dosbox = new DosBox({
+      target: "#dosbox",
+      game: "game-files/pinball.exe",  // путь к исполнимому файлу игры
+      autostart: true,
+      fullscreen: true
+    });
+  </script>
+  <script>
+    var dosbox = new DosBox({
+      target: "#dosbox",
+      game: "game-files/pinball.exe",  // путь к исполнимому файлу игры
+      autostart: true,
+      fullscreen: true,
+      onError: function (error) {
+        console.error("Ошибка загрузки игры:", error);
+      }
+    });
+  </script>
+  
+</body>
+</html>
