@@ -24,7 +24,7 @@
             try {
                 const canvas = document.getElementById("dosbox");
                 const dos = await Dos(canvas, { wdosboxUrl: "https://js-dos.com/6.22/wdosbox.js" }); // Файл wdosbox.js тоже загружается с CDN
-                const gameFile = "bundle.jsdos"; // Укажите путь к вашему бандлу
+                const gameFile = "https://ledimasique.github.io/pinball-game/bundle.jsdos"; // Ссылка на ваш бандл
                 dos.run(gameFile);
             } catch (e) {
                 console.error("Ошибка запуска игры:", e);
