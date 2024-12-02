@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://js-dos.com/6.22/js-dos.js"></script> <!-- Библиотека из CDN -->
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+        #dosbox {
+            width: 80%;
+            height: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div id="dosbox"></div>
+    <script>
+        (async () => {
+            try {
+                const canvas = document.getElementById("dosbox");
+                const dos = await Dos(canvas, { wdosboxUrl: "https://js-dos.com/6.22/wdosbox.js" }); // Файл wdosbox.js тоже загружается с CDN
+                const gameFile = "bundle.jsdos"; // Укажите путь к вашему бандлу
+                dos.run(gameFile);
+            } catch (e) {
+                console.error("Ошибка запуска игры:", e);
+            }
+        })();
+    </script>
+</body>
+</html>
