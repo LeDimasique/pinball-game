@@ -1,31 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://js-dos.com/6.22/js-dos.js"></script> <!-- Библиотека из CDN -->
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000;
-        }
-        #dosbox {
-            width: 80%;
-            height: 80%;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Space Cadet Pinball</title>
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+    <script src="https://v8.js-dos.com/latest/js-dos.js"></script> <!-- Подключение библиотеки -->
 </head>
 <body>
-    <div id="dosbox"></div>
+    <div id="dos" style="width: 100vw; height: 80vh;"></div>
     <script>
         (async () => {
             try {
-                const canvas = document.getElementById("dosbox");
-                const dos = await Dos(canvas, { wdosboxUrl: "https://js-dos.com/6.22/wdosbox.js" }); // Файл wdosbox.js тоже загружается с CDN
-                const gameFile = "https://ledimasique.github.io/pinball-game/bundle.jsdos"; // Ссылка на ваш бандл
-                dos.run(gameFile);
+                const canvas = document.getElementById("dos");
+                const dos = await Dos(canvas, { 
+                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos" // Укажите путь к вашему бандлу
+                });
             } catch (e) {
                 console.error("Ошибка запуска игры:", e);
             }
