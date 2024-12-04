@@ -3,16 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Space Cadet Pinball</title>
-    <!-- Подключение CSS -->
-    <link rel="stylesheet" href="styles.css">
-    <!-- Подключение библиотеки js-dos -->
     <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
     <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+    <style>
+        /* Стили для тела страницы */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url("wallpaper.png") no-repeat center center fixed; /* Фон с изображением */
+            background-size: cover; /* Изображение растянуто по всей странице */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Контейнер для DOS-эмулятора */
+        #dos {
+            width: 80vw; /* 80% ширины окна */
+            height: 80vh; /* 80% высоты окна */
+            border: 2px solid #fff; /* Белая рамка вокруг игры */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Лёгкая тень вокруг */
+            background-color: #000; /* Чёрный фон внутри контейнера */
+        }
+    </style>
 </head>
 <body>
-    <!-- Контейнер для DOS-эмулятора -->
     <div id="dos"></div>
-    <!-- Подключение пользовательского скрипта -->
-    <script src="scripts.js"></script>
+    <script>
+        (async () => {
+            try {
+                const canvas = document.getElementById("dos");
+                const dos = await Dos(canvas, { 
+                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos" // Укажите путь к вашему бандлу
+                });
+            } catch (e) {
+                console.error("Ошибка запуска игры:", e);
+            }
+        })();
+    </script>
 </body>
 </html>
