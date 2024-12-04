@@ -51,3 +51,51 @@
 </head>
 <body>
     <div id="dos"></div>
+    <div id="controls">
+        <button id="btn-left">Left (\)</button>
+        <button id="btn-space">Space</button>
+        <button id="btn-right">Right (/)</button>
+    </div>
+    <script>
+        let dos;
+
+        (async () => {
+            try {
+                console.log("Загрузка DOS...");
+                const canvas = document.getElementById("dos");
+                dos = await Dos(canvas, {
+                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos"
+                });
+                console.log("DOS успешно загружен.");
+            } catch (e) {
+                console.error("Ошибка запуска игры:", e);
+            }
+        })();
+
+        function emulateKeyEvent(keyCode, isPressed, duration = 100) {
+            const canvas = document.getElementById("dos");
+            const event = new KeyboardEvent(isPressed ? "keydown" : "keyup", {
+                keyCode: keyCode,
+                code: keyCode,
+                bubbles: true,
+                cancelable: true,
+            });
+            canvas.dispatchEvent(event);
+
+            if (isPressed && duration > 0) {
+                setTimeout(() => {
+                    emulateKeyEvent(keyCode, false); // Отпускание клавиши
+                }, duration);
+            }
+        }
+
+        document.getElementById("btn-left").addEventListener("click", () => {
+            emulateKeyEvent(220, true, 100); // Стандартный код '\'
+            emulateKeyEvent(226, true, 100); // Альтернативный код '\'
+        });
+
+        document.getElementById("btn-right").addEventListener("click", () => {
+            emulateKeyEvent(191, true, 100); // Код клавиши '/'
+        });
+
+        document.getElementById("btn-space")
