@@ -62,7 +62,7 @@
         <button id="btn-right">Right (/)</button>
     </div>
     <script>
-        let dos; // Переменная для хранения экземпляра Dos
+        let dos; // Переменная для экземпляра эмулятора
 
         (async () => {
             try {
@@ -75,30 +75,35 @@
             }
         })();
 
-        // Функция для отправки эмуляции нажатия клавиш
-        function emulateKeyPress(keyCode, duration = 100) {
-            const commandInterface = dos.ci; // Command Interface
-            if (commandInterface) {
-                commandInterface.keyboardEvent(keyCode, true); // Нажатие
+        // Функция для отправки событий клавиш
+        function emulateKeyEvent(keyCode, isPressed, duration = 100) {
+            const canvas = document.getElementById("dos");
+            const event = new KeyboardEvent(isPressed ? "keydown" : "keyup", {
+                keyCode: keyCode,
+                code: keyCode,
+                bubbles: true,
+                cancelable: true,
+            });
+            canvas.dispatchEvent(event);
+
+            if (isPressed && duration > 0) {
                 setTimeout(() => {
-                    commandInterface.keyboardEvent(keyCode, false); // Отпускание
+                    emulateKeyEvent(keyCode, false); // Отпускание клавиши
                 }, duration);
-            } else {
-                console.error("Command Interface не доступен");
             }
         }
 
-        // Обработчики кнопок
+        // Обработчики для кнопок
         document.getElementById("btn-left").addEventListener("click", () => {
-            emulateKeyPress(92); // Код клавиши '\'
+            emulateKeyEvent(220, true, 100); // Код клавиши '\'
         });
 
         document.getElementById("btn-right").addEventListener("click", () => {
-            emulateKeyPress(47); // Код клавиши '/'
+            emulateKeyEvent(191, true, 100); // Код клавиши '/'
         });
 
         document.getElementById("btn-space").addEventListener("click", () => {
-            emulateKeyPress(32, 3000); // Код клавиши Space (3 секунды)
+            emulateKeyEvent(32, true, 3000); // Код клавиши Space (3 секунды)
         });
     </script>
 </body>
