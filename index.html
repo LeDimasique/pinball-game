@@ -10,23 +10,18 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background: url("wallpaper.png") no-repeat center center fixed; /* Фон с изображением */
-            background-size: cover; /* Изображение растянуто по всей странице */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            background-color: #000; /* Убираем фон, делаем чёрный */
         }
 
         /* Контейнер для DOS-эмулятора */
         #dos {
-            width: 80vw; /* 80% ширины окна */
-            height: 80vh; /* 80% высоты окна */
-            border: 2px solid #fff; /* Белая рамка вокруг игры */
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Лёгкая тень вокруг */
-            background-color: #000; /* Чёрный фон внутри контейнера */
+            width: 100vw; /* На весь экран */
+            height: 100vh; /* На весь экран */
+            background-color: #000; /* Чёрный фон внутри блока */
         }
     </style>
 </head>
