@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Space Cadet Pinball</title>
+    <!-- Подключение CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Подключение библиотеки js-dos -->
     <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
-    <script src="https://v8.js-dos.com/latest/js-dos.js"></script> <!-- Подключение библиотеки -->
+    <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
 </head>
 <body>
-    <div id="dos" style="width: 100vw; height: 80vh;"></div>
-    <script>
-        (async () => {
-            try {
-                const canvas = document.getElementById("dos");
-                const dos = await Dos(canvas, { 
-                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos" // Укажите путь к вашему бандлу
-                });
-            } catch (e) {
-                console.error("Ошибка запуска игры:", e);
-            }
-        })();
-    </script>
+    <!-- Контейнер для DOS-эмулятора -->
+    <div id="dos"></div>
+    <!-- Подключение пользовательского скрипта -->
+    <script src="scripts.js"></script>
 </body>
 </html>
