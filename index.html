@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
     <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
     <style>
-        /* Стили для тела страницы */
         body {
             margin: 0;
             padding: 0;
@@ -18,21 +17,18 @@
             background-color: #000;
         }
 
-        /* Контейнер для DOS-эмулятора */
         #dos {
             width: 100vw;
             height: 80vh;
             background-color: #000;
         }
 
-        /* Контейнер для кнопок */
         #controls {
             margin-top: 10px;
             display: flex;
             gap: 10px;
         }
 
-        /* Стиль для кнопок */
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -48,7 +44,6 @@
             background-color: #666;
         }
 
-        /* Центрируем пробел */
         #btn-space {
             flex-grow: 2;
         }
@@ -56,55 +51,3 @@
 </head>
 <body>
     <div id="dos"></div>
-    <div id="controls">
-        <button id="btn-left">Left (\)</button>
-        <button id="btn-space">Space</button>
-        <button id="btn-right">Right (/)</button>
-    </div>
-    <script>
-        let dos; // Переменная для экземпляра эмулятора
-
-        (async () => {
-            try {
-                const canvas = document.getElementById("dos");
-                dos = await Dos(canvas, {
-                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos"
-                });
-            } catch (e) {
-                console.error("Ошибка запуска игры:", e);
-            }
-        })();
-
-        // Функция для отправки событий клавиш
-        function emulateKeyEvent(keyCode, isPressed, duration = 100) {
-            const canvas = document.getElementById("dos");
-            const event = new KeyboardEvent(isPressed ? "keydown" : "keyup", {
-                keyCode: keyCode,
-                code: keyCode,
-                bubbles: true,
-                cancelable: true,
-            });
-            canvas.dispatchEvent(event);
-
-            if (isPressed && duration > 0) {
-                setTimeout(() => {
-                    emulateKeyEvent(keyCode, false); // Отпускание клавиши
-                }, duration);
-            }
-        }
-
-        // Обработчики для кнопок
-        document.getElementById("btn-left").addEventListener("click", () => {
-            emulateKeyEvent(220, true, 100); // Код клавиши '\'
-        });
-
-        document.getElementById("btn-right").addEventListener("click", () => {
-            emulateKeyEvent(191, true, 100); // Код клавиши '/'
-        });
-
-        document.getElementById("btn-space").addEventListener("click", () => {
-            emulateKeyEvent(32, true, 3000); // Код клавиши Space (3 секунды)
-        });
-    </script>
-</body>
-</html>
