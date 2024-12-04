@@ -11,33 +11,90 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #000; /* Убираем фон, делаем чёрный */
+            background-color: #000;
         }
 
         /* Контейнер для DOS-эмулятора */
         #dos {
-            width: 100vw; /* На весь экран */
-            height: 100vh; /* На весь экран */
-            background-color: #000; /* Чёрный фон внутри блока */
+            width: 100vw;
+            height: 80vh;
+            background-color: #000;
+        }
+
+        /* Контейнер для кнопок */
+        #controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Стиль для кнопок */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #666;
         }
     </style>
 </head>
 <body>
     <div id="dos"></div>
+    <div id="controls">
+        <button id="btn-left">Left (\)</button>
+        <button id="btn-right">Right (/)</button>
+        <button id="btn-space">Space</button>
+    </div>
     <script>
+        let dos; // Переменная для хранения экземпляра Dos
+
         (async () => {
             try {
                 const canvas = document.getElementById("dos");
-                const dos = await Dos(canvas, { 
-                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos" // Укажите путь к вашему бандлу
+                dos = await Dos(canvas, {
+                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos"
                 });
             } catch (e) {
                 console.error("Ошибка запуска игры:", e);
             }
         })();
+
+        // Функция для отправки эмуляции нажатия клавиш
+        function emulateKeyPress(keyCode, duration = 100) {
+            const commandInterface = dos.ci; // Command Interface
+            if (commandInterface) {
+                commandInterface.sendKeyEvent(keyCode, true); // Нажатие
+                setTimeout(() => {
+                    commandInterface.sendKeyEvent(keyCode, false); // Отпускание
+                }, duration);
+            } else {
+                console.error("Command Interface не доступен");
+            }
+        }
+
+        // Обработчики кнопок
+        document.getElementById("btn-left").addEventListener("click", () => {
+            emulateKeyPress(92); // Код клавиши '\'
+        });
+
+        document.getElementById("btn-right").addEventListener("click", () => {
+            emulateKeyPress(47); // Код клавиши '/'
+        });
+
+        document.getElementById("btn-space").addEventListener("click", () => {
+            emulateKeyPress(32, 3000); // Код клавиши Space (3 секунды)
+        });
     </script>
 </body>
 </html>
