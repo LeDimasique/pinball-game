@@ -47,14 +47,19 @@
         button:hover {
             background-color: #666;
         }
+
+        /* Центрируем пробел */
+        #btn-space {
+            flex-grow: 2;
+        }
     </style>
 </head>
 <body>
     <div id="dos"></div>
     <div id="controls">
         <button id="btn-left">Left (\)</button>
-        <button id="btn-right">Right (/)</button>
         <button id="btn-space">Space</button>
+        <button id="btn-right">Right (/)</button>
     </div>
     <script>
         let dos; // Переменная для хранения экземпляра Dos
@@ -74,9 +79,9 @@
         function emulateKeyPress(keyCode, duration = 100) {
             const commandInterface = dos.ci; // Command Interface
             if (commandInterface) {
-                commandInterface.sendKeyEvent(keyCode, true); // Нажатие
+                commandInterface.keyboardEvent(keyCode, true); // Нажатие
                 setTimeout(() => {
-                    commandInterface.sendKeyEvent(keyCode, false); // Отпускание
+                    commandInterface.keyboardEvent(keyCode, false); // Отпускание
                 }, duration);
             } else {
                 console.error("Command Interface не доступен");
