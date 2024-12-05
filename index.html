@@ -64,7 +64,9 @@
                 console.log("Загрузка DOS...");
                 const canvas = document.getElementById("dos");
                 dos = await Dos(canvas, {
-                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos"
+                    url: "https://ledimasique.github.io/pinball-game/bundle.jsdos",
+                    renderBackend: "canvas", // Используем canvas для ускорения
+                    renderAspect: "Fit", // Масштабируем для лучшего отображения
                 });
                 console.log("DOS успешно загружен.");
             } catch (e) {
@@ -72,7 +74,7 @@
             }
         })();
 
-        // Упростим эмуляцию клавиш
+        // Эмуляция нажатия клавиши
         function pressKey(keyCode) {
             const canvas = document.getElementById("dos");
             const downEvent = new KeyboardEvent("keydown", {
@@ -81,16 +83,7 @@
                 bubbles: true,
                 cancelable: true,
             });
-            const upEvent = new KeyboardEvent("keyup", {
-                keyCode: keyCode,
-                code: keyCode,
-                bubbles: true,
-                cancelable: true,
-            });
             canvas.dispatchEvent(downEvent);
-            setTimeout(() => {
-                canvas.dispatchEvent(upEvent);
-            }, 50); // Минимальная задержка для обработки
         }
 
         // Обработчики для кнопок
