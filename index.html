@@ -61,12 +61,10 @@
 
         (async () => {
             try {
-                console.log("Загрузка DOS...");
                 const canvas = document.getElementById("dos");
                 dos = await Dos(canvas, {
                     url: "https://ledimasique.github.io/pinball-game/bundle.jsdos"
                 });
-                console.log("DOS успешно загружен.");
             } catch (e) {
                 console.error("Ошибка запуска игры:", e);
             }
@@ -91,19 +89,14 @@
 
         // Обработчик для кнопки 'Left (\)'
         document.getElementById("btn-left").addEventListener("click", () => {
-            console.log("Нажата кнопка \\");
-            emulateKeyEvent(226, true, 100); // Используем код '226'
+            emulateKeyEvent(90, true, 100); // Код клавиши 'Z', которая действует как '\'
         });
 
-        // Обработчик для кнопки 'Right (/)'
         document.getElementById("btn-right").addEventListener("click", () => {
-            console.log("Нажата кнопка /");
             emulateKeyEvent(191, true, 100); // Код клавиши '/'
         });
 
-        // Обработчик для кнопки 'Space'
         document.getElementById("btn-space").addEventListener("click", () => {
-            console.log("Нажата кнопка Space");
             emulateKeyEvent(32, true, 3000); // Код клавиши Space (3 секунды)
         });
     </script>
