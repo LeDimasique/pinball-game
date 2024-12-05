@@ -17,10 +17,16 @@
             background-color: #000;
         }
 
-        #dos {
-            width: 100vw;
-            height: 80vh;
+        #dos-container {
+            width: 80vw;
+            max-width: 1024px;
+            aspect-ratio: 4 / 3; /* Фиксируем пропорции 4:3 */
             background-color: #000;
+        }
+
+        #dos {
+            width: 100%;
+            height: 100%;
         }
 
         #controls {
@@ -50,7 +56,9 @@
     </style>
 </head>
 <body>
-    <div id="dos"></div>
+    <div id="dos-container">
+        <div id="dos"></div>
+    </div>
     <div id="controls">
         <button id="btn-left">Left (Я)</button>
         <button id="btn-space">Space</button>
@@ -65,8 +73,6 @@
                 const canvas = document.getElementById("dos");
                 dos = await Dos(canvas, {
                     url: "https://ledimasique.github.io/pinball-game/bundle.jsdos",
-                    renderBackend: "canvas", // Используем canvas для ускорения
-                    renderAspect: "Fit", // Масштабируем для лучшего отображения
                 });
                 console.log("DOS успешно загружен.");
             } catch (e) {
@@ -74,29 +80,49 @@
             }
         })();
 
-        // Эмуляция нажатия клавиши
-        function pressKey(keyCode) {
+        // Функции для управления клавишами
+        function keyDown(keyCode) {
             const canvas = document.getElementById("dos");
-            const downEvent = new KeyboardEvent("keydown", {
+            const event = new KeyboardEvent("keydown", {
                 keyCode: keyCode,
                 code: keyCode,
                 bubbles: true,
                 cancelable: true,
             });
-            canvas.dispatchEvent(downEvent);
+            canvas.dispatchEvent(event);
+        }
+
+        function keyUp(keyCode) {
+            const canvas = document.getElementById("dos");
+            const event = new KeyboardEvent("keyup", {
+                keyCode: keyCode,
+                code: keyCode,
+                bubbles: true,
+                cancelable: true,
+            });
+            canvas.dispatchEvent(event);
         }
 
         // Обработчики для кнопок
-        document.getElementById("btn-left").addEventListener("click", () => {
-            pressKey(90); // Код клавиши 'Z' (соответствует 'Я' в русской раскладке)
+        document.getElementById("btn-left").addEventListener("mousedown", () => {
+            keyDown(90); // Код клавиши 'Z' (соответствует 'Я' в русской раскладке)
+        });
+        document.getElementById("btn-left").addEventListener("mouseup", () => {
+            keyUp(90);
         });
 
-        document.getElementById("btn-right").addEventListener("click", () => {
-            pressKey(191); // Код клавиши '/'
+        document.getElementById("btn-right").addEventListener("mousedown", () => {
+            keyDown(191); // Код клавиши '/'
+        });
+        document.getElementById("btn-right").addEventListener("mouseup", () => {
+            keyUp(191);
         });
 
         document.getElementById("btn-space").addEventListener("click", () => {
-            pressKey(32); // Код клавиши Space
+            keyDown(32); // Код клавиши Space
+            setTimeout(() => {
+                keyUp(32);
+            }, 3000); // Удерживаем 3 секунды
         });
     </script>
 </body>
