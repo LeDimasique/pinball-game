@@ -72,36 +72,38 @@
             }
         })();
 
-        function emulateKeyEvent(keyCode, isPressed, duration = 100) {
+        // Упростим эмуляцию клавиш
+        function pressKey(keyCode) {
             const canvas = document.getElementById("dos");
-            const event = new KeyboardEvent(isPressed ? "keydown" : "keyup", {
+            const downEvent = new KeyboardEvent("keydown", {
                 keyCode: keyCode,
                 code: keyCode,
                 bubbles: true,
                 cancelable: true,
             });
-            canvas.dispatchEvent(event);
-
-            if (isPressed && duration > 0) {
-                setTimeout(() => {
-                    emulateKeyEvent(keyCode, false); // Отпускание клавиши
-                }, duration);
-            }
+            const upEvent = new KeyboardEvent("keyup", {
+                keyCode: keyCode,
+                code: keyCode,
+                bubbles: true,
+                cancelable: true,
+            });
+            canvas.dispatchEvent(downEvent);
+            setTimeout(() => {
+                canvas.dispatchEvent(upEvent);
+            }, 50); // Минимальная задержка для обработки
         }
 
-        // Обработчик для кнопки 'Left (Я)'
+        // Обработчики для кнопок
         document.getElementById("btn-left").addEventListener("click", () => {
-            emulateKeyEvent(90, true, 100); // Код клавиши 'Z' (соответствует 'Я' в русской раскладке)
+            pressKey(90); // Код клавиши 'Z' (соответствует 'Я' в русской раскладке)
         });
 
-        // Обработчик для кнопки 'Right (/)'
         document.getElementById("btn-right").addEventListener("click", () => {
-            emulateKeyEvent(191, true, 100); // Код клавиши '/'
+            pressKey(191); // Код клавиши '/'
         });
 
-        // Обработчик для кнопки 'Space'
         document.getElementById("btn-space").addEventListener("click", () => {
-            emulateKeyEvent(32, true, 3000); // Код клавиши Space (3 секунды)
+            pressKey(32); // Код клавиши Space
         });
     </script>
 </body>
