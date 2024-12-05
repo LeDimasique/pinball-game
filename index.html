@@ -52,7 +52,7 @@
 <body>
     <div id="dos"></div>
     <div id="controls">
-        <button id="btn-left">Left (\)</button>
+        <button id="btn-left">Left (Я)</button>
         <button id="btn-space">Space</button>
         <button id="btn-right">Right (/)</button>
     </div>
@@ -61,10 +61,12 @@
 
         (async () => {
             try {
+                console.log("Загрузка DOS...");
                 const canvas = document.getElementById("dos");
                 dos = await Dos(canvas, {
                     url: "https://ledimasique.github.io/pinball-game/bundle.jsdos"
                 });
+                console.log("DOS успешно загружен.");
             } catch (e) {
                 console.error("Ошибка запуска игры:", e);
             }
@@ -87,15 +89,17 @@
             }
         }
 
-        // Обработчик для кнопки 'Left (\)'
+        // Обработчик для кнопки 'Left (Я)'
         document.getElementById("btn-left").addEventListener("click", () => {
-            emulateKeyEvent(90, true, 100); // Код клавиши 'Z', которая действует как '\'
+            emulateKeyEvent(90, true, 100); // Код клавиши 'Z' (соответствует 'Я' в русской раскладке)
         });
 
+        // Обработчик для кнопки 'Right (/)'
         document.getElementById("btn-right").addEventListener("click", () => {
             emulateKeyEvent(191, true, 100); // Код клавиши '/'
         });
 
+        // Обработчик для кнопки 'Space'
         document.getElementById("btn-space").addEventListener("click", () => {
             emulateKeyEvent(32, true, 3000); // Код клавиши Space (3 секунды)
         });
