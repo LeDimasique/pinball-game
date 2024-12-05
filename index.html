@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
     <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
     <style>
-        /* Стили для тела страницы */
         body {
             margin: 0;
             padding: 0;
@@ -18,21 +17,18 @@
             background-color: #000;
         }
 
-        /* Контейнер для DOS-эмулятора */
         #dos {
             width: 100vw;
             height: 80vh;
             background-color: #000;
         }
 
-        /* Контейнер для кнопок */
         #controls {
             margin-top: 10px;
             display: flex;
             gap: 10px;
         }
 
-        /* Стиль для кнопок */
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -48,7 +44,6 @@
             background-color: #666;
         }
 
-        /* Центрируем пробел */
         #btn-space {
             flex-grow: 2;
         }
@@ -62,20 +57,21 @@
         <button id="btn-right">Right (/)</button>
     </div>
     <script>
-        let dos; // Переменная для экземпляра эмулятора
+        let dos;
 
         (async () => {
             try {
+                console.log("Загрузка DOS...");
                 const canvas = document.getElementById("dos");
                 dos = await Dos(canvas, {
                     url: "https://ledimasique.github.io/pinball-game/bundle.jsdos"
                 });
+                console.log("DOS успешно загружен.");
             } catch (e) {
                 console.error("Ошибка запуска игры:", e);
             }
         })();
 
-        // Функция для отправки событий клавиш
         function emulateKeyEvent(keyCode, isPressed, duration = 100) {
             const canvas = document.getElementById("dos");
             const event = new KeyboardEvent(isPressed ? "keydown" : "keyup", {
@@ -93,16 +89,21 @@
             }
         }
 
-        // Обработчики для кнопок
+        // Обработчик для кнопки 'Left (\)'
         document.getElementById("btn-left").addEventListener("click", () => {
-            emulateKeyEvent(220, true, 100); // Код клавиши '\'
+            console.log("Нажата кнопка \\");
+            emulateKeyEvent(226, true, 100); // Используем код '226'
         });
 
+        // Обработчик для кнопки 'Right (/)'
         document.getElementById("btn-right").addEventListener("click", () => {
+            console.log("Нажата кнопка /");
             emulateKeyEvent(191, true, 100); // Код клавиши '/'
         });
 
+        // Обработчик для кнопки 'Space'
         document.getElementById("btn-space").addEventListener("click", () => {
+            console.log("Нажата кнопка Space");
             emulateKeyEvent(32, true, 3000); // Код клавиши Space (3 секунды)
         });
     </script>
